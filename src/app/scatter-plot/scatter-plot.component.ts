@@ -20,7 +20,7 @@ export class ScatterPlotComponent implements OnInit {
   ];
   private svg: any;
   private margin = 50;
-  private width = 750 - (this.margin * 2);
+  private width = 900 - (this.margin * 2);
   private height = 400 - (this.margin);
   constructor() { }
 
@@ -45,7 +45,7 @@ export class ScatterPlotComponent implements OnInit {
     this.svg.append("g")
     .attr("transform", "translate(0," + this.height + ")")
     .transition()
-    .duration(3000)
+    .duration(1000)
     .call(d3Axis.axisBottom(x).tickFormat(d3Format.format("d")));
 
     // Add Y axis
@@ -54,7 +54,7 @@ export class ScatterPlotComponent implements OnInit {
     .range([ this.height, 0]);
     this.svg.append("g")
     .transition()
-    .duration(3000)
+    .duration(1000)
     .call(d3Axis.axisLeft(y));
 
     // Add dots
@@ -63,10 +63,12 @@ export class ScatterPlotComponent implements OnInit {
     .data(this.data)
     .enter()
     .append("circle")
-    .transition()
-    .duration(3000)
+    // .transition()
+    // .duration(3000)
     .attr("cx", (d: { Released: d3Scale.NumberValue; }) => x(d.Released))
     .attr("cy", (d: { Stars: d3Scale.NumberValue; }) => y(d.Stars))
+    .transition()
+    .duration(3000)
     .attr("r", 7)
     // .transition()
     // .duration(3000)
@@ -80,8 +82,11 @@ export class ScatterPlotComponent implements OnInit {
     .append("text")
     .transition()
     .duration(3000)
-    .text((d: { Framework: any; }) => d.Framework)
     .attr("x", (d: { Released: d3Scale.NumberValue; }) => x(d.Released))
     .attr("y", (d: { Stars: d3Scale.NumberValue; }) => y(d.Stars))
+    // .transition()
+    // .duration(3000)
+    .text((d: { Framework: any; }) => d.Framework)
+
   }
 }
